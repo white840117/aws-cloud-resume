@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John Lo | Cloud & Network Architecture</title>
+    <style>
+        :root {
+            --primary-color: #C5050C; /* UW-Madison Badger Red */
+            --bg-color: #f4f5f7;
+            --card-bg: #ffffff;
+            --text-main: #333333;
+            --text-muted: #666666;
+        }
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 5px;
+            color: #000;
+        }
+        .subtitle {
+            font-size: 1.2rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+        .contact-bar {
+            margin-top: 15px;
+            font-size: 0.95rem;
+        }
+        .contact-bar a {
+            color: var(--primary-color);
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: bold;
+        }
+        .section-title {
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 10px;
+            margin-top: 40px;
+            margin-bottom: 25px;
+            font-size: 1.5rem;
+            display: inline-block;
+        }
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border-left: 5px solid transparent;
+        }
+        .card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+            border-left: 5px solid var(--primary-color);
+        }
+        .job-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 10px;
+        }
+        .job-title {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #000;
+        }
+        .job-company {
+            color: var(--primary-color);
+            font-weight: 600;
+        }
+        .job-date {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+        ul {
+            padding-left: 20px;
+            margin-top: 10px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .skill-badge {
+            background-color: #e9ecef;
+            color: #333;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+        .skill-badge:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        footer {
+            text-align: center;
+            margin-top: 60px;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>John (Yun-Ting) Lo</h1>
+        <div class="subtitle">Cloud Infrastructure | Network Automation | Technical Project Management</div>
+        <div class="contact-bar">
+            <span>📍 Madison, WI</span> | 
+            <a href="mailto:your.email@example.com">Email Me</a> | 
+            <a href="https://linkedin.com/in/yourprofile" target="_blank">LinkedIn</a>
+        </div>
+    </header>
+
+    <h2 class="section-title">Professional Experience</h2>
+    
+    <div class="card">
+        <div class="job-header">
+            <div>
+                <span class="job-title">Solution Architect / Pre-sales Consultant</span><br>
+                <span class="job-company">HPE (Hewlett Packard Enterprise) / SYSTEX</span>
+            </div>
+            <span class="job-date">Past Experience</span>
+        </div>
+        <ul>
+            <li>Designed and deployed enterprise-grade network infrastructure, specializing in VLAN configuration and L3 switching.</li>
+            <li>Led network deployment automation workflows for major enterprise clients (including TSMC), significantly reducing manual configuration errors and accelerating deployment timelines.</li>
+            <li>Bridged the gap between technical constraints and business requirements during pre-sales phases.</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <div class="job-header">
+            <div>
+                <span class="job-title">Marketing Assistant</span><br>
+                <span class="job-company">Microsoft Taiwan</span>
+            </div>
+            <span class="job-date">Past Experience</span>
+        </div>
+        <ul>
+            <li>Facilitated cross-functional collaboration and project management within the marketing division, driving alignment between technical and non-technical stakeholders.</li>
+        </ul>
+    </div>
+
+    <h2 class="section-title">Education</h2>
+    
+    <div class="card">
+        <div class="job-header">
+            <div>
+                <span class="job-title">Master of Science in Information (MSIS)</span><br>
+                <span class="job-company">University of Wisconsin–Madison</span>
+            </div>
+            <span class="job-date">Expected 2026</span>
+        </div>
+        <ul>
+            <li>Currently serving as a Reader/Grader (Project Assistant).</li>
+            <li>Focusing on data management, systems architecture, and advanced analytics.</li>
+        </ul>
+    </div>
+
+    <h2 class="section-title">Key Projects</h2>
+
+    <div class="card">
+        <div class="job-header">
+            <div>
+                <span class="job-title">Serverless Cloud Portfolio (This Website)</span>
+            </div>
+        </div>
+        <ul>
+            <li>Architected a highly available static website leveraging <strong>AWS S3</strong> for storage and <strong>CloudFront (CDN)</strong> for global edge delivery.</li>
+            <li>Enforced strict security protocols using Origin Access Control (OAC) to isolate storage layers from public access, demonstrating enterprise-level security awareness.</li>
+        </ul>
+    </div>
+
+    <div class="card">
+        <div class="job-header">
+            <div>
+                <span class="job-title">National Team Squad Builder Database</span>
+            </div>
+        </div>
+        <ul>
+            <li>Engineered a comprehensive relational database using SQL for international football players.</li>
+            <li>Executed end-to-end data pipelines: from data cleaning and schema design to complex querying for visualization readiness.</li>
+        </ul>
+    </div>
+
+    <h2 class="section-title">Technical Expertise</h2>
+    
+    <div class="card">
+        <div class="skills-container">
+            <span class="skill-badge">AWS (S3, CloudFront, IAM)</span>
+            <span class="skill-badge">Network Automation</span>
+            <span class="skill-badge">Cisco / Aruba Infrastructure</span>
+            <span class="skill-badge">VLAN & L3 Switching</span>
+            <span class="skill-badge">Python (Pandas, Seaborn)</span>
+            <span class="skill-badge">SQL (MySQL)</span>
+            <span class="skill-badge">Tableau</span>
+            <span class="skill-badge">Project Management</span>
+        </div>
+    </div>
+
+    <footer>
+        <p>Architected on AWS | Deployed via CloudFront | On Wisconsin! | © 2026 John Lo</p>
+    </footer>
+</div>
+
+</body>
+</html>

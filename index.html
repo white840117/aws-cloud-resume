@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>John Lo | Cloud & Network Architecture</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --red: #C5050C;
+            --black: #0f0f0f;
+            --bg: #f5f4f0;
+            --card: #ffffff;
+            --muted: #777;
+            --border: #e5e3de;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--bg);
+            color: var(--black);
+            line-height: 1.65;
+        }
+
+        /* ── HERO ── */
+        .hero {
+            background-image: url('bascom-hill-spring-2025-1600.jpg');
+            background-size: cover;
+            background-position: center 40%;
+            color: white;
+            padding: 80px 40px 70px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                to bottom,
+                rgba(110,2,7,0.85) 0%,
+                rgba(150,4,9,0.72) 50%,
+                rgba(90,2,5,0.88) 100%
+            );
+            pointer-events: none;
+        }
+        .hero h1 {
+            font-family: 'DM Serif Display', serif;
+            font-size: clamp(2.4rem, 5vw, 3.8rem);
+            letter-spacing: -0.5px;
+            margin-bottom: 12px;
+            position: relative;
+            text-shadow: 0 2px 16px rgba(0,0,0,0.55);
+        }
+        .hero .subtitle {
+            font-size: 1rem;
+            font-weight: 300;
+            color: rgba(255,255,255,0.9);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            position: relative;
+            text-shadow: 0 1px 8px rgba(0,0,0,0.5);
+        }
+        .hero .divider {
+            width: 40px;
+            height: 2px;
+            background: var(--red);
+            margin: 20px auto;
+        }
+        .hero .summary {
+            max-width: 680px;
+            margin: 0 auto 28px;
+            font-size: 0.97rem;
+            color: rgba(255,255,255,0.95);
+            line-height: 1.8;
+            position: relative;
+            text-shadow: 0 1px 8px rgba(0,0,0,0.45);
+        }
+        .contact-bar {
+            display: flex;
+            gap: 8px;
+            justify-content: center;
+            flex-wrap: wrap;
+            position: relative;
+        }
+        .contact-bar a, .contact-bar span {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 0.88rem;
+            border: 1px solid rgba(255,255,255,0.15);
+            padding: 6px 14px;
+            border-radius: 40px;
+            transition: all 0.2s;
+        }
+        .contact-bar a:hover {
+            background: var(--red);
+            border-color: var(--red);
+            color: white;
+        }
+
+        /* ── LAYOUT ── */
+        .container {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 60px 24px 80px;
+        }
+
+        /* ── SECTION TITLE ── */
+        .section-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--red);
+            margin-bottom: 6px;
+        }
+        .section-title {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.9rem;
+            margin-bottom: 28px;
+            color: var(--black);
+        }
+        .section-block {
+            margin-bottom: 60px;
+        }
+
+        /* ── CARD ── */
+        .card {
+            background: var(--card);
+            border-radius: 12px;
+            padding: 28px 32px;
+            margin-bottom: 16px;
+            border: 1px solid var(--border);
+            transition: box-shadow 0.25s, transform 0.25s;
+        }
+        .card:hover {
+            box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+            transform: translateY(-2px);
+        }
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 16px;
+            margin-bottom: 14px;
+        }
+        .card-title {
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: var(--black);
+        }
+        .card-org {
+            color: var(--red);
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-top: 3px;
+        }
+        .card-date {
+            white-space: nowrap;
+            font-size: 0.82rem;
+            color: var(--muted);
+            background: #f0efeb;
+            padding: 4px 12px;
+            border-radius: 20px;
+            flex-shrink: 0;
+        }
+        ul.bullets {
+            padding-left: 0;
+            list-style: none;
+        }
+        ul.bullets li {
+            position: relative;
+            padding-left: 18px;
+            margin-bottom: 8px;
+            font-size: 0.93rem;
+            color: #444;
+            line-height: 1.7;
+        }
+        ul.bullets li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--red);
+            font-weight: 700;
+        }
+
+        /* ── METRICS ROW ── */
+        .metrics {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-top: 16px;
+        }
+        .metric {
+            background: #fdf3f3;
+            border: 1px solid rgba(197,5,12,0.12);
+            border-radius: 8px;
+            padding: 10px 16px;
+            text-align: center;
+            flex: 1;
+            min-width: 90px;
+        }
+        .metric-value {
+            font-family: 'DM Serif Display', serif;
+            font-size: 1.4rem;
+            color: var(--red);
+            display: block;
+        }
+        .metric-label {
+            font-size: 0.72rem;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+
+        /* ── SKILLS ── */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+        }
+        .skill-group {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px 20px;
+        }
+        .skill-group-title {
+            font-size: 0.72rem;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--red);
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+        .tag {
+            background: #f0efeb;
+            color: #444;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: background 0.15s, color 0.15s;
+        }
+        .tag:hover {
+            background: var(--red);
+            color: white;
+        }
+
+        /* ── CERT ── */
+        .cert-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 16px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 18px 24px;
+        }
+        .cert-icon { font-size: 1.8rem; }
+        .cert-name { font-weight: 600; color: var(--black); font-size: 0.95rem; }
+        .cert-issuer { font-size: 0.82rem; color: var(--muted); margin-top: 3px; }
+
+        /* ── FOOTER ── */
+        footer {
+            text-align: center;
+            padding: 32px;
+            background: #8c0308;
+            color: rgba(255,255,255,0.55);
+            font-size: 0.82rem;
+            letter-spacing: 0.05em;
+        }
+        footer span { color: rgba(255,255,255,0.95); font-weight: 600; }
+
+        @media (max-width: 600px) {
+            .hero { padding: 60px 24px 50px; }
+            .card { padding: 20px; }
+            .card-header { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+    <h1>John (Yun-Ting) Lo</h1>
+    <div class="subtitle">Cloud Infrastructure · Network Automation · Data Analytics</div>
+    <div class="divider"></div>
+    <p class="summary">
+        Strategic professional with 4+ years of cross-functional experience at global enterprises including HPE,
+        specializing in bridging complex technical architectures with high-impact business outcomes.
+        Proven track record influencing executive decisions and spearheading corporate proposals exceeding $500K in value.
+    </p>
+    <div class="contact-bar">
+        <span>📍 Madison, WI</span>
+        <a href="tel:6086925923">📞 (608) 692-5923</a>
+        <a href="#" id="email-link">✉ </a>
+        <a href="https://linkedin.com/in/white840117/" target="_blank">in LinkedIn</a>
+    </div>
+</div>
+
+<div class="container">
+
+    <!-- EXPERIENCE -->
+    <div class="section-block">
+        <div class="section-label">Career</div>
+        <div class="section-title">Professional Experience</div>
+
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="card-title">Project Assistant (Reader / Grader)</div>
+                    <div class="card-org">The Information School, UW–Madison</div>
+                </div>
+                <span class="card-date">Jan 2026 – Present</span>
+            </div>
+            <ul class="bullets">
+                <li>Evaluated complex technical concepts to establish standardized grading frameworks, managing workflows and delivering actionable feedback to 50+ graduate students.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="card-title">Solution Architect</div>
+                    <div class="card-org">Hewlett Packard Enterprise</div>
+                </div>
+                <span class="card-date">Jun 2020 – Feb 2024</span>
+            </div>
+            <ul class="bullets">
+                <li>Directed cross-functional engineering and business teams to define requirements and specs for 20+ enterprise initiatives valued at $500K+ each.</li>
+                <li>Tracked operational performance metrics using data-driven methodologies, driving a 20% increase in product adoption and over $5M in annual revenue.</li>
+                <li>Spearheaded end-to-end project management, reducing system downtime by 30% and ensuring process adherence across teams.</li>
+                <li>Led the deployment of a microservice network automation solution (Ansible) for TSMC — cutting operational time by 50%, human error by 80%, and infrastructure costs by 30%.</li>
+            </ul>
+            <div class="metrics">
+                <div class="metric"><span class="metric-value">50%</span><div class="metric-label">Ops time reduced</div></div>
+                <div class="metric"><span class="metric-value">80%</span><div class="metric-label">Human error reduced</div></div>
+                <div class="metric"><span class="metric-value">$5M+</span><div class="metric-label">Annual revenue impact</div></div>
+                <div class="metric"><span class="metric-value">30%</span><div class="metric-label">Infra cost cut</div></div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="card-title">Pre-sales Consultant</div>
+                    <div class="card-org">SYSTEX Corporation</div>
+                </div>
+                <span class="card-date">Sep 2019 – May 2020</span>
+            </div>
+            <ul class="bullets">
+                <li>Partnered with cross-functional teams to manage the RFP process for major financial clients, ensuring 100% on-time submission for contracts totaling NT$10M+.</li>
+                <li>Analyzed stakeholder feedback to optimize integration strategies, shortening the project lifecycle by 15%.</li>
+                <li>Designed standardized POC documentation and Tableau presentations, securing executive buy-in by illustrating a 20% system efficiency improvement.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="card-title">Marketing Assistant</div>
+                    <div class="card-org">Microsoft Taiwan</div>
+                </div>
+                <span class="card-date">Jul 2015 – Jun 2016</span>
+            </div>
+            <ul class="bullets">
+                <li>Orchestrated 5+ promotional campaigns for Microsoft Surface, engaging 500+ potential customers and driving a 10% increase in regional brand awareness.</li>
+                <li>Coordinated logistics for Computex, attracting 1,000+ visitors and generating 50+ qualified business leads.</li>
+                <li>Facilitated 3 internal workshops for 30+ attendees, driving 2 key marketing strategies later adopted by management.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- EDUCATION -->
+    <div class="section-block">
+        <div class="section-label">Academic</div>
+        <div class="section-title">Education</div>
+
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="card-title">Master of Science in Information (MSIS) — GPA 4.0 / 4.0</div>
+                    <div class="card-org">University of Wisconsin–Madison</div>
+                </div>
+                <span class="card-date">Sep 2025 – Expected 2026</span>
+            </div>
+            <ul class="bullets">
+                <li>Coursework: Python for Data Analysis, Text Mining, Data Visualization, Database Design & Management.</li>
+                <li>Currently serving as Project Assistant (Reader/Grader) for graduate-level courses.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="card-title">Master of Information Management — GPA 3.92 / 4.3</div>
+                    <div class="card-org">National Taiwan University of Science and Technology</div>
+                </div>
+                <span class="card-date">Sep 2017 – Jun 2019</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="card-title">Bachelor of Business Administration in Information Management — GPA 3.615 / 4.0</div>
+                    <div class="card-org">Tamkang University</div>
+                </div>
+                <span class="card-date">Sep 2013 – Jun 2017</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- PROJECTS -->
+    <div class="section-block">
+        <div class="section-label">Work</div>
+        <div class="section-title">Key Projects</div>
+
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="card-title">Serverless Cloud Portfolio — This Website</div>
+                    <div class="card-org">AWS S3 · CloudFront · Certificate Manager · IAM</div>
+                </div>
+                <span class="card-date">2025</span>
+            </div>
+            <ul class="bullets">
+                <li>Architected a highly available static website using AWS S3 for storage and CloudFront CDN for global edge delivery with low-latency performance.</li>
+                <li>Enforced enterprise-level security using Origin Access Control (OAC) to isolate S3 from public access, with HTTPS enforced via AWS Certificate Manager.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="card-title">Operational Workflow Optimization & Dashboard</div>
+                    <div class="card-org">Tableau · Cross-team Collaboration</div>
+                </div>
+                <span class="card-date">Sep – Dec 2025</span>
+            </div>
+            <ul class="bullets">
+                <li>Developed a real-time shared feedback dashboard that resolved communication delays, achieving 100% issue visibility within 5 minutes.</li>
+                <li>Established standardized resolution criteria ensuring >80% accuracy and improving cross-team transparency.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="card-title">Urban Park Accessibility & Public Health Dashboard</div>
+                    <div class="card-org">Tableau · Excel · AI-assisted Analysis</div>
+                </div>
+                <span class="card-date">Sep – Dec 2025</span>
+            </div>
+            <ul class="bullets">
+                <li>Transformed and cleansed raw public health data across 900+ cities, then synthesized a Tableau dashboard with a quadrant-based matrix to prioritize interventions.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="card-title">National Team Squad Builder Database</div>
+                    <div class="card-org">SQL · MySQL · Excel · Google Gemini</div>
+                </div>
+                <span class="card-date">Jan – Mar 2026</span>
+            </div>
+            <ul class="bullets">
+                <li>Engineered a relational database for optimizing 26-man World Cup rosters, importing real-world EA Sports FC 24 datasets into structured SQL tables.</li>
+                <li>Leveraged AI tools to accelerate complex SQL query formulation (JOINs, aggregations, VIEWs) for player market value evaluation and performance tracking.</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <div>
+                    <div class="card-title">TSMC Automation Networking Deployment</div>
+                    <div class="card-org">Ansible · Microservice Architecture · Network Automation</div>
+                </div>
+                <span class="card-date">Jun – Dec 2022</span>
+            </div>
+            <ul class="bullets">
+                <li>Architected and implemented a microservice automation environment using Ansible to modernize legacy networking workflows for high-scale semiconductor manufacturing.</li>
+                <li>Managed the full transition from manual configuration to automated rollout, slashing operational time by 50% and human error by 80%.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- SKILLS -->
+    <div class="section-block">
+        <div class="section-label">Capabilities</div>
+        <div class="section-title">Technical Expertise</div>
+
+        <div class="skills-grid">
+            <div class="skill-group">
+                <div class="skill-group-title">Cloud & Infrastructure</div>
+                <div class="skill-tags">
+                    <span class="tag">AWS S3</span>
+                    <span class="tag">CloudFront</span>
+                    <span class="tag">Certificate Manager</span>
+                    <span class="tag">IAM</span>
+                    <span class="tag">Ansible</span>
+                </div>
+            </div>
+            <div class="skill-group">
+                <div class="skill-group-title">Networking</div>
+                <div class="skill-tags">
+                    <span class="tag">Network Automation</span>
+                    <span class="tag">Cisco / Aruba</span>
+                    <span class="tag">VLAN & L3 Switching</span>
+                </div>
+            </div>
+            <div class="skill-group">
+                <div class="skill-group-title">Programming & Data</div>
+                <div class="skill-tags">
+                    <span class="tag">Python</span>
+                    <span class="tag">Pandas / NumPy</span>
+                    <span class="tag">Scikit-learn</span>
+                    <span class="tag">spaCy</span>
+                    <span class="tag">SQL / MySQL</span>
+                </div>
+            </div>
+            <div class="skill-group">
+                <div class="skill-group-title">Analytics & BI</div>
+                <div class="skill-tags">
+                    <span class="tag">Tableau</span>
+                    <span class="tag">Power BI</span>
+                    <span class="tag">Excel</span>
+                    <span class="tag">SPSS / AMOS</span>
+                </div>
+            </div>
+            <div class="skill-group">
+                <div class="skill-group-title">Product & Management</div>
+                <div class="skill-tags">
+                    <span class="tag">Agile / Scrum</span>
+                    <span class="tag">Stakeholder Mgmt</span>
+                    <span class="tag">Market Research</span>
+                    <span class="tag">RFP Management</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CERTIFICATIONS -->
+    <div class="section-block">
+        <div class="section-label">Credentials</div>
+        <div class="section-title">Certifications</div>
+        <div class="cert-badge">
+            <span class="cert-icon">🏅</span>
+            <div>
+                <div class="cert-name">HPE Certified Networking Professional</div>
+                <div class="cert-issuer">Hewlett Packard Enterprise · Oct 2021</div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    Architected on <span>AWS</span> | Deployed via <span>CloudFront</span> | On Wisconsin! | © 2026 John Lo
+</footer>
+
+<script>
+(function(){
+    var u='john840117',d='gmail'+'.com';
+    var el=document.getElementById('email-link');
+    if(el){
+        el.href='mai'+'lto:'+u+'@'+d;
+        el.textContent='\u2709 '+u+'@'+d;
+    }
+})();
+</script>
+</body>
+</html>
